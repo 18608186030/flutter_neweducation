@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import 'RequestListener.dart';
@@ -8,6 +10,10 @@ class MyHttpUtil {
   static const String _GET = "get";
   static const String _POST = "post";
   static const int _COMMON_REQUEST_ERROR = -1;
+
+  //应用是否允许抓包
+  static const bool isProxyChecked = true;
+  static const String baseUrl = "http://es.staq360.com/";
 
   Dio _dio;
   static MyHttpUtil _instance;
@@ -27,12 +33,24 @@ class MyHttpUtil {
   MyHttpUtil._internal() {
     _dio = Dio(BaseOptions(
       //项目域名，如果传的 url 是以 http 开头的会忽略此域名
-      baseUrl: "http://es.staq360.com/",
+      baseUrl: baseUrl,
       //请求头
       //headers: {'platform': 'android', 'version': 11.0},
       connectTimeout: 10000,
       receiveTimeout: 20000,
     ));
+    if (isProxyChecked) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) {
+          return isProxyChecked && Platform.isAndroid;
+        };
+        client.findProxy = (url) {
+          return 'PROXY $baseUrl';
+        };
+      };
+    }
     _addStartHttpInterceptor(_dio); //添加请求之前的拦截器
   }
 
