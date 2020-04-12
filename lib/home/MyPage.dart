@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text("Main");
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("个人中心"),
+      ),
+    );
   }
 }

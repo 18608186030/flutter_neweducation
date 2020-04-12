@@ -10,10 +10,7 @@ class MyHttpUtil {
   static const String _GET = "get";
   static const String _POST = "post";
   static const int _COMMON_REQUEST_ERROR = -1;
-
-  //应用是否允许抓包
-  static const bool isProxyChecked = true;
-  static const String baseUrl = "http://es.staq360.com/";
+  static const String baseUrl = "https://es.staq360.com/";
 
   Dio _dio;
   static MyHttpUtil _instance;
@@ -32,25 +29,11 @@ class MyHttpUtil {
   ///初始化
   MyHttpUtil._internal() {
     _dio = Dio(BaseOptions(
-      //项目域名，如果传的 url 是以 http 开头的会忽略此域名
-      baseUrl: baseUrl,
-      //请求头
-      //headers: {'platform': 'android', 'version': 11.0},
-      connectTimeout: 10000,
-      receiveTimeout: 20000,
+      baseUrl: baseUrl,//项目域名，如果传的 url 是以 http 开头的会忽略此域名
+      //请求头 headers: {'platform': 'android', 'version': 11.0},
+      connectTimeout: 30000,
+      receiveTimeout: 30000,
     ));
-    if (isProxyChecked) {
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) {
-          return isProxyChecked && Platform.isAndroid;
-        };
-        client.findProxy = (url) {
-          return 'PROXY $baseUrl';
-        };
-      };
-    }
     _addStartHttpInterceptor(_dio); //添加请求之前的拦截器
   }
 
@@ -89,7 +72,7 @@ class MyHttpUtil {
 
       if (response.statusCode != 200) {
         requestListener
-            .onError(BaseResponse(response.statusCode, "请求失败", Map(), false));
+            .onError(BaseResponse(response.statusCode.toString(), "请求失败", Map()));
         return;
       }
 
@@ -97,14 +80,15 @@ class MyHttpUtil {
       BaseResponse baseResponse = BaseResponse.fromJson(response.data);
       if (baseResponse.data == null) baseResponse.data = Map();
       //根据返回的状态进行处理，如需要添加 token 失效处理
-      if (baseResponse.code == 200) {
+      // ignore: unrelated_type_equality_checks
+      if (baseResponse.code == "200") {
         requestListener.onSuccess(baseResponse);
       } else {
         requestListener.onError(baseResponse);
       }
     } catch (exception) {
       requestListener
-          .onError(BaseResponse(_COMMON_REQUEST_ERROR, "请求失败", Map(), false));
+          .onError(BaseResponse(_COMMON_REQUEST_ERROR.toString(), "请求失败", Map()));
     }
   }
 

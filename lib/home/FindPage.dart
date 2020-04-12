@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 class FindPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text("Find");
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("发现"),
+      ),
+    );
   }
 }
