@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neweducation/net/BaseResponse.dart';
+import 'package:flutter_neweducation/net/baseresponse_entity.dart';
 import 'package:flutter_neweducation/net/MyHttpUtil.dart';
 import 'package:flutter_neweducation/net/RequestListener.dart';
 
@@ -19,7 +19,7 @@ class WelfarePage extends StatelessWidget {
     MyHttpUtil.instance.get(
         "admin/public/sys/dict/type/WELFARE_MENU_CONFIG",
         RequestListener(
-            onSuccessListener: (BaseResponse data) => print('成功'),
-            onErrorListener: (BaseResponse errorData) => print('失败}')));
+            onSuccessListener: (BaseResponseEntity data) => print('成功'),
+            onErrorListener: (BaseResponseEntity errorData) => print('失败}')));
   }
 }

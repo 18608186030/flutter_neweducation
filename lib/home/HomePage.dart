@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neweducation/net/baseresponse_entity.dart';
+import 'package:flutter_neweducation/net/MyHttpUtil.dart';
+import 'package:flutter_neweducation/net/RequestListener.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
+import 'modle/banner_data_entity.dart';
 
 //首页界面
 class HomePage extends StatefulWidget {
@@ -7,15 +12,12 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-const List<String> images = [
-  "https://www.baidu.com/img/bd_logo1.png",
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586771363658&di=6bf26f13be246940e4cb9cee825c1750&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190928%2F19%2F1569669941-mbktUvcAEW.jpg",
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586771363658&di=7f6d0c3795592c7f71a8a5fd25535277&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20180802%2F00%2F1533141975-YiJkWSvejO.jpeg"
-];
-
 class _HomePageState extends State<HomePage> {
+  List<BannerDataList> bannerList = List<BannerDataList>();
+
   @override
   Widget build(BuildContext context) {
+    _sendGetRequest();
     return new Scaffold(
         appBar: new AppBar(
           title: new Text("首页"),
@@ -23,13 +25,27 @@ class _HomePageState extends State<HomePage> {
         body: new Swiper(
           itemBuilder: (BuildContext context, int index) {
             return new Image.network(
-              images[index],
+              bannerList[index].previewUrl,
               fit: BoxFit.fill,
             );
           },
           autoplay: true,
-          itemCount: images.length,
+          itemCount: bannerList.length,
           pagination: new SwiperPagination(),
         ));
+  }
+
+  _sendGetRequest() {
+    MyHttpUtil.instance.get(
+        "admin/cms/news/public/banner/list",
+        RequestListener(
+            onSuccessListener: (BaseResponseEntity data) {
+              BannerDataEntity bannerDataEntity =
+                  BannerDataEntity.fromJson(data.data);
+              setState(() {
+                bannerList = bannerDataEntity.xList;
+              });
+            },
+            onErrorListener: (BaseResponseEntity errorData) {}));
   }
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 import 'RequestListener.dart';
-import 'BaseResponse.dart';
+import 'baseresponse_entity.dart';
 
 ///网络请求工具类，单例处理
 class MyHttpUtil {
@@ -72,12 +72,12 @@ class MyHttpUtil {
 
       if (response.statusCode != 200) {
         requestListener
-            .onError(BaseResponse(response.statusCode.toString(), "请求失败", Map()));
+            .onError(BaseResponseEntity(response.statusCode.toString(), "请求失败", Map()));
         return;
       }
 
       //将返回的数据解析成定义的类，方便操作
-      BaseResponse baseResponse = BaseResponse.fromJson(response.data);
+      BaseResponseEntity baseResponse = BaseResponseEntity.fromJson(response.data);
       if (baseResponse.data == null) baseResponse.data = Map();
       //根据返回的状态进行处理，如需要添加 token 失效处理
       // ignore: unrelated_type_equality_checks
@@ -88,7 +88,7 @@ class MyHttpUtil {
       }
     } catch (exception) {
       requestListener
-          .onError(BaseResponse(_COMMON_REQUEST_ERROR.toString(), "请求失败", Map()));
+          .onError(BaseResponseEntity(_COMMON_REQUEST_ERROR.toString(), "请求失败", Map()));
     }
   }
 
