@@ -19,20 +19,25 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _sendGetRequest();
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("首页"),
-        ),
-        body: new Swiper(
-          itemBuilder: (BuildContext context, int index) {
-            return new Image.network(
-              bannerList[index].previewUrl,
-              fit: BoxFit.fill,
-            );
-          },
-          autoplay: true,
-          itemCount: bannerList.length,
-          pagination: new SwiperPagination(),
-        ));
+      appBar: new AppBar(
+        title: new Text("首页"),
+      ),
+      body: FutureBuilder(builder: (context, snapshot) {
+        return Container(
+            height: 180,
+            child: new Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                return new Image.network(
+                  bannerList[index].previewUrl,
+                  fit: BoxFit.fill,
+                );
+              },
+              autoplay: true,
+              itemCount: bannerList.length,
+              pagination: new SwiperPagination(),
+            ));
+      }),
+    );
   }
 
   _sendGetRequest() {

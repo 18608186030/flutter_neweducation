@@ -29,11 +29,12 @@ dependencies:
   json_annotation: ^2.0.0
   #swiper https://github.com/best-flutter/flutter_swiper
   flutter_swiper: ^1.1.6
+  #easyrefresh https://github.com/xuelongqy/flutter_easyrefresh
+  flutter_easyrefresh: ^2.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
