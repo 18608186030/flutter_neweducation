@@ -31,6 +31,8 @@ dependencies:
   flutter_swiper: ^1.1.6
   #easyrefresh https://github.com/xuelongqy/flutter_easyrefresh
   flutter_easyrefresh: ^2.1.1
+  #https://github.com/flutter/plugins/tree/master/packages/webview_flutter
+  webview_flutter: ^0.3.0
 
 dev_dependencies:
   flutter_test:

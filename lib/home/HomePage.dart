@@ -15,6 +15,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<BannerDataList> bannerList = List<BannerDataList>();
 
+  //是否保存状态
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     _sendGetRequest();
