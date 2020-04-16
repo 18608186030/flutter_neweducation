@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neweducation/net/baseresponse_entity.dart';
-import 'package:flutter_neweducation/net/MyHttpUtil.dart';
-import 'package:flutter_neweducation/net/RequestListener.dart';
+import 'package:flutter_neweducation/baselib/MyHttpUtil.dart';
+import 'package:flutter_neweducation/baselib/RequestListener.dart';
+import 'package:flutter_neweducation/baselib/baseresponse_entity.dart';
+
+
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'modle/banner_data_entity.dart';

@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_neweducation/net/baseresponse_entity.dart';
-import 'package:flutter_neweducation/net/MyHttpUtil.dart';
-import 'package:flutter_neweducation/net/RequestListener.dart';
+import 'package:flutter_neweducation/baselib/MyHttpUtil.dart';
+import 'package:flutter_neweducation/baselib/RequestListener.dart';
+import 'package:flutter_neweducation/baselib/baseresponse_entity.dart';
+import 'package:flutter_neweducation/welfare/welfaredata_entity.dart';
+
+
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'modle/welfaredata_entity.dart';
 
 //福利界面
 class WelfarePage extends StatefulWidget {
@@ -18,7 +20,6 @@ class _WelfarePageState extends State<WelfarePage>
   List<WelfaredataList> welfaredataList = List<WelfaredataList>();
   TabController _tabController;
 
-  @override
   void initState() {
     super.initState();
     welfaredataList.add(WelfaredataList(name:"货运通",value: "http://192.168.8.9"));
@@ -31,58 +32,41 @@ class _WelfarePageState extends State<WelfarePage>
   }
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('TabDemo'),
-        bottom: TabBar(
-          isScrollable: true,
-          //是否可以滚动
-          controller: _tabController,
-          labelColor: Colors.red,
-          unselectedLabelColor: Color(0xff666666),
-          labelStyle: TextStyle(fontSize: 16.0),
-          tabs: welfaredataList.map((item) {
-            return Tab(
-              text: item.name,
-            );
-          }).toList(),
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: welfaredataList.map((item) {
-          return Stack(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.topCenter,
-                child: TabPage(item.value),
-              ),
-            ],
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  _sendGetRequest() {
     MyHttpUtil.instance.get(
         "admin/public/sys/dict/type/WELFARE_MENU_CONFIG",
         RequestListener(
             onSuccessListener: (BaseResponseEntity data) {
               WelfaredataEntity bannerDataEntity =
-              WelfaredataEntity.fromJson(data.data);
+                  WelfaredataEntity.fromJson(data.data);
               setState(() {
                 welfaredataList = bannerDataEntity.xList;
+                _tabController = TabController(
+                  length: welfaredataList.length,
+                  vsync: this,
+                );
               });
             },
             onErrorListener: (BaseResponseEntity errorData) {}));
+    return Scaffold(
+        appBar: new AppBar(
+            title: Center(
+                child: new TabBar(
+                    controller: _tabController,
+                    isScrollable: true,
+                    labelColor: Colors.white,
+                    tabs: welfaredataList.map((v) {
+                      return Center(
+                        child: new Text(v.name),
+                      );
+                    }).toList()))),
+        body: TabBarView(
+            controller: _tabController,
+            children: welfaredataList.map((v) {
+              return Center(
+                child: TabPage(v.value),
+              );
+            }).toList()));
   }
 }
 
@@ -99,7 +83,7 @@ class TabPage extends StatefulWidget {
 class _TabPageState extends State<TabPage> with AutomaticKeepAliveClientMixin {
   String url;
   final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+      Completer<WebViewController>();
 
   _TabPageState(this.url);
 

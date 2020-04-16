@@ -33,6 +33,8 @@ dependencies:
   flutter_easyrefresh: ^2.1.1
   #https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^0.3.0
+  #https://github.com/flutter/plugins
+  video_player: ^0.10.0
 
 dev_dependencies:
   flutter_test:

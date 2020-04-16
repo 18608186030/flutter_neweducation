@@ -1,5 +1,10 @@
-import 'package:flutter_neweducation/home/modle/banner_data_entity.dart';
-import 'package:flutter_neweducation/home/modle/welfaredata_entity.dart';
+
+
+
+
+import 'package:flutter_neweducation/welfare/welfaredata_entity.dart';
+
+import 'home/modle/banner_data_entity.dart';
 
 class EntityFactory {
   static T generateOBJ<T>(json) {

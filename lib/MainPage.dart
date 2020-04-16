@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'home/FindPage.dart';
+import 'package:flutter_neweducation/welfare/WelfarePage.dart';
+
+import 'find/FindPage.dart';
 import 'home/HomePage.dart';
-import 'home/MyPage.dart';
-import 'home/WelfarePage.dart';
+import 'my/MyPage.dart';
+
 
 //主页界面
 class MainPage extends StatelessWidget {
