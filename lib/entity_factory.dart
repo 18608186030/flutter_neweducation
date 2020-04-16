@@ -1,10 +1,6 @@
-
-
-
-
+import 'package:flutter_neweducation/home/modle/banner_data_entity.dart';
 import 'package:flutter_neweducation/welfare/welfaredata_entity.dart';
-
-import 'home/modle/banner_data_entity.dart';
+import 'package:flutter_neweducation/find/modle/find_short_video_data_entity.dart';
 
 class EntityFactory {
   static T generateOBJ<T>(json) {
@@ -14,6 +10,8 @@ class EntityFactory {
       return BannerDataEntity.fromJson(json) as T;
     } else if (T.toString() == "WelfaredataEntity") {
       return WelfaredataEntity.fromJson(json) as T;
+    } else if (T.toString() == "FindShortVideoDataEntity") {
+      return FindShortVideoDataEntity.fromJson(json) as T;
     } else {
       return null;
     }
