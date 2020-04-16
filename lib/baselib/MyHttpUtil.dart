@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 
 import 'RequestListener.dart';
@@ -29,7 +27,7 @@ class MyHttpUtil {
   ///初始化
   MyHttpUtil._internal() {
     _dio = Dio(BaseOptions(
-      baseUrl: baseUrl,//项目域名，如果传的 url 是以 http 开头的会忽略此域名
+      baseUrl: baseUrl, //项目域名，如果传的 url 是以 http 开头的会忽略此域名
       //请求头 headers: {'platform': 'android', 'version': 11.0},
       connectTimeout: 30000,
       receiveTimeout: 30000,
@@ -38,57 +36,63 @@ class MyHttpUtil {
   }
 
   ///get请求
-  ///如果 url 是以 http 开头的则忽略 baseUrl
-  get(String url, RequestListener requestListener, {params}) async {
-    _requestHttp(url, requestListener, _GET, params);
+  get(String url, RequestListener requestListener,
+      {data, queryParameters}) async {
+    _requestHttp(url, requestListener, _GET, data, queryParameters);
   }
 
   ///post请求
-  ///如果 url 是以 http 开头的则忽略 baseUrl
-  post(String url, RequestListener requestListener, {params}) async {
-    _requestHttp(url, requestListener, _POST, params);
+  post(String url, RequestListener requestListener,
+      {data, queryParameters}) async {
+    _requestHttp(url, requestListener, _POST, data, queryParameters);
   }
 
   ///网络请求
   _requestHttp(String url, RequestListener requestListener,
-      [String method, FormData params]) async {
+      [String method,
+      Map<String, dynamic> queryParameters, data]) async {
     try {
       Response<Map<String, dynamic>> response;
       if (method == _GET) {
-        if (params != null && params.isNotEmpty) {
+        if (queryParameters != null) {
           response = await _dio.get<Map<String, dynamic>>(url,
-              queryParameters: params);
+              queryParameters: queryParameters);
         } else {
           response = await _dio.get<Map<String, dynamic>>(url);
         }
       } else if (method == _POST) {
-        if (params != null && params.isNotEmpty) {
+        if (data != null && queryParameters != null) {
           response = await _dio.post<Map<String, dynamic>>(url,
-              queryParameters: params);
+              data: data, queryParameters: queryParameters);
         } else {
-          response = await _dio.post<Map<String, dynamic>>(url);
+          if (data != null) {
+            response =
+                await _dio.post<Map<String, dynamic>>(url, data: data);
+          } else if (queryParameters != null) {
+            response = await _dio.post<Map<String, dynamic>>(url,
+                queryParameters: queryParameters);
+          } else {
+            response = await _dio.post<Map<String, dynamic>>(url);
+          }
         }
       }
 
       if (response.statusCode != 200) {
-        requestListener
-            .onError(BaseResponseEntity(response.statusCode.toString(), "请求失败", Map()));
+        requestListener.onError(
+            BaseResponseEntity(response.statusCode.toString(), "请求失败", Map()));
         return;
       }
-
-      //将返回的数据解析成定义的类，方便操作
-      BaseResponseEntity baseResponse = BaseResponseEntity.fromJson(response.data);
+      BaseResponseEntity baseResponse =
+          BaseResponseEntity.fromJson(response.data);
       if (baseResponse.data == null) baseResponse.data = Map();
-      //根据返回的状态进行处理，如需要添加 token 失效处理
-      // ignore: unrelated_type_equality_checks
       if (baseResponse.code == "200") {
         requestListener.onSuccess(baseResponse);
       } else {
         requestListener.onError(baseResponse);
       }
     } catch (exception) {
-      requestListener
-          .onError(BaseResponseEntity(_COMMON_REQUEST_ERROR.toString(), "请求失败", Map()));
+      requestListener.onError(
+          BaseResponseEntity(_COMMON_REQUEST_ERROR.toString(), "请求失败", Map()));
     }
   }
 

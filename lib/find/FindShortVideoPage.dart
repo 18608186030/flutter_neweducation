@@ -19,6 +19,9 @@ class _FindShortVideoPageState extends State<FindShortVideoPage> {
   var hasNextPage = false;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   void initState() {
     super.initState();
     xList = List();
@@ -26,24 +29,22 @@ class _FindShortVideoPageState extends State<FindShortVideoPage> {
 
   @override
   Widget build(BuildContext context) {
-    _getData(params: FormData.from({"curPage": curPage, "pageSize": 20}));
+    _getData(params: {"curPage": curPage, "pageSize": 20});
     return Container(
       child: EasyRefresh(
         child: ListView.builder(
             itemCount: xList.length,
-            itemExtent: 50.0, //强制高度为50.0
             itemBuilder: (BuildContext context, int index) {
               return ListTile(title: Text(xList[index].title));
             }),
         onRefresh: () async {
           xList.clear();
           curPage = 0;
-          _getData(params: FormData.from({"curPage": curPage, "pageSize": 20}));
+          _getData(params: {"curPage": curPage, "pageSize": 20});
         },
         onLoad: () async {
           if (hasNextPage) {
-            _getData(
-                params: FormData.from({"curPage": curPage, "pageSize": 20}));
+            _getData(params: {"curPage": curPage, "pageSize": 20});
           }
         },
       ),
@@ -53,19 +54,17 @@ class _FindShortVideoPageState extends State<FindShortVideoPage> {
   _getData({params}) {
     MyHttpUtil.instance.post(
         "admin/cms/news/public/video/hot/list",
-        RequestListener(
-            onSuccessListener: (BaseResponseEntity data) {
-              print("成功");
-              FindShortVideoDataEntity findShortVideoDataEntity =
-                  FindShortVideoDataEntity.fromJson(data.data);
-              setState(() {
-                hasNextPage = findShortVideoDataEntity.hasNextPage;
-                xList.addAll(findShortVideoDataEntity.xList);
-              });
-            },
-            onErrorListener: (BaseResponseEntity errorData) {
-              print("失败");
-            }),
-        params: params);
+        RequestListener(onSuccessListener: (BaseResponseEntity data) {
+          print("成功");
+          FindShortVideoDataEntity findShortVideoDataEntity =
+              FindShortVideoDataEntity.fromJson(data.data);
+          setState(() {
+            hasNextPage = findShortVideoDataEntity.hasNextPage;
+            xList.addAll(findShortVideoDataEntity.xList);
+          });
+        }, onErrorListener: (BaseResponseEntity errorData) {
+          print("失败");
+        }),
+        data: params);
   }
 }
