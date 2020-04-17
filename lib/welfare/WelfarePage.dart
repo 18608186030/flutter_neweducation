@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_neweducation/baselib/MyHttpUtil.dart';
 import 'package:flutter_neweducation/baselib/RequestListener.dart';
+import 'package:flutter_neweducation/baselib/api.dart';
 import 'package:flutter_neweducation/baselib/baseresponse_entity.dart';
 import 'package:flutter_neweducation/welfare/welfaredata_entity.dart';
 
@@ -34,7 +35,7 @@ class _WelfarePageState extends State<WelfarePage>
   @override
   Widget build(BuildContext context) {
     MyHttpUtil.instance.get(
-        "admin/public/sys/dict/type/WELFARE_MENU_CONFIG",
+        Api.WELFARE_MENU_LIST,
         RequestListener(
             onSuccessListener: (BaseResponseEntity data) {
               WelfaredataEntity bannerDataEntity =

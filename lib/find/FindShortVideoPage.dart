@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_neweducation/baselib/MyHttpUtil.dart';
 import 'package:flutter_neweducation/baselib/RequestListener.dart';
+import 'package:flutter_neweducation/baselib/api.dart';
 import 'package:flutter_neweducation/baselib/baseresponse_entity.dart';
 
 import 'modle/find_short_video_data_entity.dart';
@@ -53,7 +54,7 @@ class _FindShortVideoPageState extends State<FindShortVideoPage> {
 
   _getData({params}) {
     MyHttpUtil.instance.post(
-        "admin/cms/news/public/video/hot/list",
+        Api.FIND_VIDEO_LIST,
         RequestListener(onSuccessListener: (BaseResponseEntity data) {
           print("成功");
           FindShortVideoDataEntity findShortVideoDataEntity =

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neweducation/baselib/MyHttpUtil.dart';
 import 'package:flutter_neweducation/baselib/RequestListener.dart';
+import 'package:flutter_neweducation/baselib/api.dart';
 import 'package:flutter_neweducation/baselib/baseresponse_entity.dart';
 
 
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
 
   _sendGetRequest() {
     MyHttpUtil.instance.get(
-        "admin/cms/news/public/banner/list",
+        Api.HOME_BANNER_LIST,
         RequestListener(
             onSuccessListener: (BaseResponseEntity data) {
               BannerDataEntity bannerDataEntity =

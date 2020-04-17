@@ -8,8 +8,7 @@ class MyHttpUtil {
   static const String _GET = "get";
   static const String _POST = "post";
   static const int _COMMON_REQUEST_ERROR = -1;
-  static const String baseUrl = "https://es.staq360.com/";
-
+  static const String baseUrl = "http://es.staq360.com/";
   Dio _dio;
   static MyHttpUtil _instance;
 
@@ -49,8 +48,7 @@ class MyHttpUtil {
 
   ///网络请求
   _requestHttp(String url, RequestListener requestListener,
-      [String method,
-      Map<String, dynamic> queryParameters, data]) async {
+      [String method, Map<String, dynamic> queryParameters, data]) async {
     try {
       Response<Map<String, dynamic>> response;
       if (method == _GET) {
@@ -66,8 +64,7 @@ class MyHttpUtil {
               data: data, queryParameters: queryParameters);
         } else {
           if (data != null) {
-            response =
-                await _dio.post<Map<String, dynamic>>(url, data: data);
+            response = await _dio.post<Map<String, dynamic>>(url, data: data);
           } else if (queryParameters != null) {
             response = await _dio.post<Map<String, dynamic>>(url,
                 queryParameters: queryParameters);

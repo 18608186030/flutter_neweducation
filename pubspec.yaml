@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   #dio https://github.com/flutterchina/dio
   dio: ^3.0.9
+  #https://pub.dev/packages/dio_cookie_manager
+  dio_cookie_manager: 1.0.0
   #json_serializable https://github.com/dart-lang/json_serializable/tree/master/example
   json_annotation: ^3.0.1
   #swiper https://github.com/best-flutter/flutter_swiper

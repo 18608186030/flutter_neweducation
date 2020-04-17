@@ -1,7 +1,7 @@
-
 ///返回对象封装
 class BaseResponseEntity {
   BaseResponseEntity(this.code, this.msg, this.data);
+
   String code;
   String msg;
   Map<String, dynamic> data;
