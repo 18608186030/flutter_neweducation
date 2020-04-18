@@ -11,9 +11,12 @@ class FindPage extends StatefulWidget {
 }
 
 class _FindPageState extends State<FindPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin,AutomaticKeepAliveClientMixin {
   TabController _tabController;
   List<String> tabs = ["短视频", "车友圈", "资讯"];
+
+  @override
+  bool get wantKeepAlive => true;
 
   void initState() {
     super.initState();

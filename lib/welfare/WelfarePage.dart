@@ -17,9 +17,12 @@ class WelfarePage extends StatefulWidget {
 }
 
 class _WelfarePageState extends State<WelfarePage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin,AutomaticKeepAliveClientMixin {
   List<WelfaredataList> welfaredataList = List<WelfaredataList>();
   TabController _tabController;
+
+  @override
+  bool get wantKeepAlive => true;
 
   void initState() {
     super.initState();

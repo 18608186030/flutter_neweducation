@@ -14,7 +14,8 @@ class FindShortVideoPage extends StatefulWidget {
   _FindShortVideoPageState createState() => _FindShortVideoPageState();
 }
 
-class _FindShortVideoPageState extends State<FindShortVideoPage> {
+class _FindShortVideoPageState extends State<FindShortVideoPage>
+    with AutomaticKeepAliveClientMixin {
   List<FindShortVideoDataList> xList;
   var curPage = 0;
   var hasNextPage = false;

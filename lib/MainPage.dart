@@ -80,7 +80,10 @@ class MainPageState extends State<MainPageWidget> {
   Widget build(BuildContext context) {
     initData();
     return Scaffold(
-        body: _pageList[_tabIndex],
+        body: IndexedStack(
+          index: _tabIndex,
+          children: _pageList,
+        ),
         bottomNavigationBar: new BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             new BottomNavigationBarItem(
