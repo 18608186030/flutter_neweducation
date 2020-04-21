@@ -16,6 +16,8 @@ class Api {
       "${USER_ADMIN}public/sys/dict/type/WELFARE_MENU_CONFIG";
 
   //发现短视频列表
-  static const String FIND_VIDEO_LIST =
-      "${USER_ADMIN}cms/news/public/video/hot/list";
+  static const FIND_VIDEO_LIST = "${USER_ADMIN}cms/news/public/video/hot/list";
+
+  //头条数据
+  static const String FIND_HEADLINE_LIST = "${USER_ADMIN}cms/news/public/headline/list";
 }
