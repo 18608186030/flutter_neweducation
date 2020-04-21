@@ -1,7 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_neweducation/baselib/api.dart';
+import 'package:flutter_neweducation/baselib/net/api.dart';
 import 'package:flutter_neweducation/baselib/net/DioManager.dart';
 import 'package:flutter_neweducation/baselib/net/NetMethod.dart';
 import 'package:flutter_neweducation/widget/loading_view/loading_view.dart';
@@ -64,7 +63,7 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
 
   _getData(curPage) {
     DioManager.instance.request<FindShortVideoDataEntity>(
-        NetMethod.POST, Api.HOME_BANNER_LIST,
+        NetMethod.POST, Api.FIND_VIDEO_LIST,
         data: {"curPage": curPage, "pageSize": 20}, success: (data) {
       setState(() {
         loadingState = LoadingState.success;

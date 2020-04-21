@@ -1,7 +1,7 @@
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import '../api.dart';
+import 'package:flutter_neweducation/baselib/net/api.dart';
 import 'BaseEntity.dart';
 import 'BaseListEntity.dart';
 import 'ErrorEntity.dart';

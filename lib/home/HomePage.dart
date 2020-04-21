@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neweducation/baselib/api.dart';
+import 'package:flutter_neweducation/baselib/net/api.dart';
 import 'package:flutter_neweducation/baselib/net/DioManager.dart';
 import 'package:flutter_neweducation/baselib/net/NetMethod.dart';
 
