@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_neweducation/baselib/MyHttpUtil.dart';
-import 'package:flutter_neweducation/baselib/RequestListener.dart';
 import 'package:flutter_neweducation/baselib/api.dart';
-import 'package:flutter_neweducation/baselib/baseresponse_entity.dart';
+import 'package:flutter_neweducation/baselib/net/DioManager.dart';
+import 'package:flutter_neweducation/baselib/net/NetMethod.dart';
 import 'package:flutter_neweducation/widget/loading_view/loading_view.dart';
 
 import 'modle/find_short_video_data_entity.dart';
@@ -21,7 +20,7 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
   var curPage = 0;
   var hasNextPage = false;
 
-  LoadingState loadingState = LoadingState.netError;
+  LoadingState loadingState = LoadingState.loading;
 
   @override
   bool get wantKeepAlive => true;
@@ -30,11 +29,11 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
   void initState() {
     super.initState();
     xList = List();
+    _getData(curPage);
   }
 
   @override
   Widget build(BuildContext context) {
-    _getData(params: {"curPage": curPage, "pageSize": 20});
     return LoadingView(
       state: loadingState,
       contentWidget: Container(
@@ -48,35 +47,32 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
           onRefresh: () async {
             xList.clear();
             curPage = 0;
-            _getData(params: {"curPage": curPage, "pageSize": 20});
+            _getData(curPage);
           },
           onLoad: () async {
             if (hasNextPage) {
-              _getData(params: {"curPage": curPage, "pageSize": 20});
+              _getData(curPage);
             }
           },
         ),
       ),
-      allRetryListener: () {},
+      allRetryListener: () {
+        _getData(curPage);
+      },
     );
   }
 
-  _getData({params}) {
-    MyHttpUtil.instance.post(
-        Api.FIND_VIDEO_LIST,
-        RequestListener(onSuccessListener: (BaseResponseEntity data) {
-          print("成功");
-          FindShortVideoDataEntity findShortVideoDataEntity =
-              FindShortVideoDataEntity.fromJson(data.data);
-          setState(() {
-            hasNextPage = findShortVideoDataEntity.hasNextPage;
-            xList.addAll(findShortVideoDataEntity.xList);
-            loadingState = LoadingState.success;
-          });
-        }, onErrorListener: (BaseResponseEntity errorData) {
-          print("失败");
-          loadingState = LoadingState.empty;
-        }),
-        data: params);
+  _getData(curPage) {
+    DioManager.instance.request<FindShortVideoDataEntity>(
+        NetMethod.POST, Api.HOME_BANNER_LIST,
+        data: {"curPage": curPage, "pageSize": 20}, success: (data) {
+      setState(() {
+        loadingState = LoadingState.success;
+        hasNextPage = data.hasNextPage;
+        xList.addAll(data.xList);
+      });
+    }, error: (data) {
+      loadingState = LoadingState.error;
+    });
   }
 }
