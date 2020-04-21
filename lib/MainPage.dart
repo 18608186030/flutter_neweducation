@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neweducation/utils/image_util.dart';
 import 'package:flutter_neweducation/welfare/WelfarePage.dart';
 
 import 'find/FindPage.dart';
 import 'home/HomePage.dart';
 import 'my/MyPage.dart';
-
 
 //主页界面
 class MainPage extends StatelessWidget {
@@ -52,20 +52,20 @@ class MainPageState extends State<MainPageWidget> {
   void initData() {
     tabImages = [
       [
-        getTabImage('images/ic_home_normal.png'),
-        getTabImage('images/ic_home_pressed.png')
+        getTabImage(ImageUtil.getImagePath('ic_home_normal')),
+        getTabImage(ImageUtil.getImagePath('ic_home_pressed'))
       ],
       [
-        getTabImage('images/ic_welfare_normal.png'),
-        getTabImage('images/ic_welfare_pressed.png')
+        getTabImage(ImageUtil.getImagePath('ic_welfare_normal')),
+        getTabImage(ImageUtil.getImagePath('ic_welfare_pressed'))
       ],
       [
-        getTabImage('images/ic_find_normal.png'),
-        getTabImage('images/ic_find_pressed.png')
+        getTabImage(ImageUtil.getImagePath('ic_find_normal')),
+        getTabImage(ImageUtil.getImagePath('ic_find_pressed'))
       ],
       [
-        getTabImage('images/ic_my_normal.png'),
-        getTabImage('images/ic_my_pressed.png')
+        getTabImage(ImageUtil.getImagePath('ic_my_normal')),
+        getTabImage(ImageUtil.getImagePath('ic_my_pressed'))
       ]
     ];
     _pageList = [

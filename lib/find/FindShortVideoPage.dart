@@ -5,6 +5,7 @@ import 'package:flutter_neweducation/baselib/MyHttpUtil.dart';
 import 'package:flutter_neweducation/baselib/RequestListener.dart';
 import 'package:flutter_neweducation/baselib/api.dart';
 import 'package:flutter_neweducation/baselib/baseresponse_entity.dart';
+import 'package:flutter_neweducation/widget/loading_view/loading_view.dart';
 
 import 'modle/find_short_video_data_entity.dart';
 
@@ -20,6 +21,8 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
   var curPage = 0;
   var hasNextPage = false;
 
+  LoadingState loadingState = LoadingState.netError;
+
   @override
   bool get wantKeepAlive => true;
 
@@ -32,24 +35,29 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
   @override
   Widget build(BuildContext context) {
     _getData(params: {"curPage": curPage, "pageSize": 20});
-    return Container(
-      child: EasyRefresh(
-        child: ListView.builder(
-            itemCount: xList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(title: Text(xList[index].title));
-            }),
-        onRefresh: () async {
-          xList.clear();
-          curPage = 0;
-          _getData(params: {"curPage": curPage, "pageSize": 20});
-        },
-        onLoad: () async {
-          if (hasNextPage) {
+    return LoadingView(
+      state: loadingState,
+      contentWidget: Container(
+        color: Colors.white,
+        child: EasyRefresh(
+          child: ListView.builder(
+              itemCount: xList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(title: Text(xList[index].title));
+              }),
+          onRefresh: () async {
+            xList.clear();
+            curPage = 0;
             _getData(params: {"curPage": curPage, "pageSize": 20});
-          }
-        },
+          },
+          onLoad: () async {
+            if (hasNextPage) {
+              _getData(params: {"curPage": curPage, "pageSize": 20});
+            }
+          },
+        ),
       ),
+      allRetryListener: () {},
     );
   }
 
@@ -63,9 +71,11 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
           setState(() {
             hasNextPage = findShortVideoDataEntity.hasNextPage;
             xList.addAll(findShortVideoDataEntity.xList);
+            loadingState = LoadingState.success;
           });
         }, onErrorListener: (BaseResponseEntity errorData) {
           print("失败");
+          loadingState = LoadingState.empty;
         }),
         data: params);
   }
