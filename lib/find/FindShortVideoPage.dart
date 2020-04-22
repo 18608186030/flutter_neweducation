@@ -16,7 +16,7 @@ class FindShortVideoPage extends StatefulWidget {
 class _FindShortVideoPageState extends State<FindShortVideoPage>
     with AutomaticKeepAliveClientMixin {
   List<FindShortVideoDataList> xList;
-  var curPage = 0;
+  var curPage = 1;
   var hasNextPage = false;
 
   LoadingState loadingState = LoadingState.loading;
@@ -45,7 +45,7 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
               }),
           onRefresh: () async {
             xList.clear();
-            curPage = 0;
+            curPage = 1;
             _getData(curPage);
           },
           onLoad: () async {
@@ -64,9 +64,10 @@ class _FindShortVideoPageState extends State<FindShortVideoPage>
   _getData(curPage) {
     DioManager.instance.request<FindShortVideoDataEntity>(
         NetMethod.POST, Api.FIND_VIDEO_LIST,
-        data: {"curPage": curPage, "pageSize": 20}, success: (data) {
+        data: {"curPage": curPage, "pageSize": 10}.toString(), success: (data) {
       setState(() {
         loadingState = LoadingState.success;
+        curPage = data.nextPage;
         hasNextPage = data.hasNextPage;
         xList.addAll(data.xList);
       });
