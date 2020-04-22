@@ -73,19 +73,3 @@ class _FindInformationPageState extends State<FindInformationPage> with Automati
     });
   }
 }
-
-
-class InfoMationItme1 extends StatefulWidget {
-  @override
-  _InfoMationItme1State createState() => _InfoMationItme1State();
-}
-
-class _InfoMationItme1State extends State<InfoMationItme1> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: ,
-    );
-  }
-}
-
