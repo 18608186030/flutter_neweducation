@@ -17,3 +17,4 @@
 - [wanandroid_flutter](https://github.com/yechaoa/wanandroid_flutter/tree/master/lib)
 - [flutter_wanandroid](https://github.com/Sky24n/flutter_wanandroid)
 - [flutter-wechat](https://github.com/ding-zou/flutter-wechat)
+- [高仿闲鱼](https://github.com/MissYoung/Flutter_shop)
