@@ -19,3 +19,5 @@
 - [flutter_wanandroid](https://github.com/Sky24n/flutter_wanandroid)
 - [flutter-wechat](https://github.com/ding-zou/flutter-wechat)
 - [高仿闲鱼](https://github.com/MissYoung/Flutter_shop)
+- [开眼视频](https://github.com/wtus/flutter_kaiyan)
+- [开眼视频](https://github.com/wtus/flutter_kaiyan)
