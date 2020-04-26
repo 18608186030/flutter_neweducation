@@ -22,3 +22,4 @@
 - [开眼视频](https://github.com/wtus/flutter_kaiyan)
 - [易云音乐](https://github.com/boyan01/flutter-netease-music)
 - [funandroid](https://github.com/phoenixsky/fun_android_flutter)
+- [书旗](https://github.com/huanxsd/flutter_shuqi)
