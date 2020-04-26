@@ -24,3 +24,6 @@
 - [funandroid](https://github.com/phoenixsky/fun_android_flutter)
 - [书旗](https://github.com/huanxsd/flutter_shuqi)
 - [天阅动漫](https://github.com/ZDfordream/FlutterTianYue)
+- [showtime](https://github.com/HappyGhostz/show_time_for_flutter)
+- [bilibili](https://github.com/nekomiyaxneko/flutter_MyBilibili)
+
