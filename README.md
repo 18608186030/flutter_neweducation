@@ -20,4 +20,4 @@
 - [flutter-wechat](https://github.com/ding-zou/flutter-wechat)
 - [高仿闲鱼](https://github.com/MissYoung/Flutter_shop)
 - [开眼视频](https://github.com/wtus/flutter_kaiyan)
-- [开眼视频](https://github.com/wtus/flutter_kaiyan)
+- [仿网易云音乐(https://github.com/boyan01/flutter-netease-music)
