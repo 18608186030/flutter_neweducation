@@ -5,6 +5,7 @@
   [Dart语法](https://www.cnblogs.com/tangs/articles/10330579.html)、
   [flutter中文社区](https://flutter-io.cn)、
   [flutter书籍](https://book.flutterchina.club)、
+  [Flutter中文网](https://flutterchina.club/cookbook/lists/basic-list/)、
   [flutter开源引擎](https://pub.flutter-io.cn)、
 - [flutter视频学习](https://www.bilibili.com/video/BV1S4411E7LY?p=42)、
 
