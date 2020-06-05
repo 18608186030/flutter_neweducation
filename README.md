@@ -2,7 +2,9 @@
 **app描述**
 ## dart and flutter study 
 - [Dart](https://flutter-io.cn)、
+  [Dart-SDK](https://dart.dev/get-dart)、
   [Dart语法](https://www.cnblogs.com/tangs/articles/10330579.html)、
+  [flutter-SDK](https://flutter.dev/docs/development/tools/sdk/releases?tab=macos#macos)、
   [flutter中文社区](https://flutter-io.cn)、
   [flutter书籍](https://book.flutterchina.club)、
   [Flutter中文网](https://flutterchina.club/cookbook/lists/basic-list/)、
