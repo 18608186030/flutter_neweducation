@@ -5,6 +5,7 @@ import 'package:flutter_neweducation/baselib/net/api.dart';
 import 'package:flutter_neweducation/baselib/net/DioManager.dart';
 import 'package:flutter_neweducation/baselib/net/NetMethod.dart';
 import 'package:flutter_neweducation/welfare/welfaredata_entity.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 

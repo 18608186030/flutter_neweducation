@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neweducation/baselib/net/api.dart';
 import 'package:flutter_neweducation/baselib/net/DioManager.dart';
 import 'package:flutter_neweducation/baselib/net/NetMethod.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import 'modle/banner_data_entity.dart';
 
@@ -34,19 +36,28 @@ class _HomePageState extends State<HomePage>
         title: new Text("首页"),
       ),
       body: FutureBuilder(builder: (context, snapshot) {
-        return Container(
-            height: 180,
-            child: new Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                return new Image.network(
-                  bannerList[index].previewUrl,
-                  fit: BoxFit.fill,
-                );
-              },
-              autoplay: true,
-              itemCount: bannerList.length,
-              pagination: new SwiperPagination(),
-            ));
+        return EasyRefresh(
+          child: Column(
+            children: <Widget>[
+              Container(
+                  height: ScreenUtil().setHeight(330),
+                  child: new Swiper(
+                    itemBuilder: (BuildContext context, int index) {
+                      return new Image.network(
+                        bannerList[index].previewUrl,
+                        fit: BoxFit.fill,
+                      );
+                    },
+                    autoplay: true,
+                    itemCount: bannerList.length,
+                    pagination: new SwiperPagination(),
+                  )),
+              Container(
+                child: Text("listveiw"),
+              )
+            ],
+          ),
+        );
       }),
     );
   }

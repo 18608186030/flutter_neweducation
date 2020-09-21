@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neweducation/utils/image_util.dart';
 import 'package:flutter_neweducation/welfare/WelfarePage.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 
 import 'find/FindPage.dart';
 import 'home/HomePage.dart';
@@ -10,8 +11,11 @@ import 'my/MyPage.dart';
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //设置适配尺寸 (填入设计稿中设备的屏幕尺寸) 此处假如设计稿是按iPhone6的尺寸设计的(iPhone6 750*1334)
+    ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: false);
     return new MaterialApp(
-        debugShowCheckedModeBanner: false, home: new MainPageWidget());
+        debugShowCheckedModeBanner: false,
+        home: new MainPageWidget());
   }
 }
 
