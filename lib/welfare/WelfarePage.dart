@@ -24,9 +24,9 @@ class _WelfarePageState extends State<WelfarePage>
   void initState() {
     super.initState();
     welfaredataList
-        .add(WelfaredataList(name: "货运通", value: "http://192.168.8.9"));
-    welfaredataList.add(
-        WelfaredataList(name: "E钱包", value: "http://es.staq360.com/icbch5"));
+        .add(WelfaredataList(name: "货运通", value: "https://www.pgyer.com"));
+    welfaredataList
+        .add(WelfaredataList(name: "E钱包", value: "https://www.baidu.com"));
     _tabController = TabController(
       length: welfaredataList.length,
       vsync: this,
@@ -51,23 +51,27 @@ class _WelfarePageState extends State<WelfarePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(
-            title: Center(
-                child: new TabBar(
-                    controller: _tabController,
-                    isScrollable: true,
-                    labelColor: Colors.white,
-                    tabs: welfaredataList.map((v) {
-                      return Center(
-                        child: new Text(v.name),
-                      );
-                    }).toList()))),
+        appBar: AppBar(
+            title:Container(
+              width: double.infinity,
+              height: 45,
+              child:  Center(
+                  child: TabBar(
+                      controller: _tabController,
+                      isScrollable: true,
+                      labelColor: Colors.white,
+                      indicatorPadding: EdgeInsets.only(top: 5, bottom: 5),
+                      indicatorSize: TabBarIndicatorSize.label,
+                      tabs: welfaredataList.map((v) {
+                        return Center(
+                          child: Text(v.name),
+                        );
+                      }).toList())),
+            )),
         body: TabBarView(
             controller: _tabController,
             children: welfaredataList.map((v) {
-              return Center(
-                child: TabPage(v.value),
-              );
+              return TabPage(v.value);
             }).toList()));
   }
 }
